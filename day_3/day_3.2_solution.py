@@ -35,8 +35,6 @@ if __name__ == "__main__":
             elf1 = set(line.strip())
             elf2 = set(next(f).strip())
             elf3 = set(next(f).strip())
-            sack1 = set(line[:int(len(line)/2)])
-            sack2 = set(line[int(len(line)/2):])
             common = list(elf1.intersection(elf2.intersection(elf3)))[0]
             if common.islower():
                 score += ord(common) - 96
