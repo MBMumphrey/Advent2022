@@ -2,16 +2,16 @@ import sys
 
 def tick(cycle):
     if ((cycle - 1) % 40) in [x - 1, x, x + 1]:
-        rows[int((cycle-1)/40)].append("#")
+        rows[int((cycle-1)/40)] += "#"
     else:
-        rows[int((cycle-1)/40)].append(".")
+        rows[int((cycle-1)/40)] += "."
     cycle += 1
     return cycle
 
 if __name__ == "__main__":
     infile = sys.argv[1]
 
-    rows = [[], [], [], [], [], []]
+    rows = ["", "", "", "", "", ""]
     x = 1
     cycle = 1
     with open(infile, 'r') as f:
@@ -24,4 +24,4 @@ if __name__ == "__main__":
                 x += int(line.split(" ")[1])
 
     for row in rows:
-        print("".join(row))
+        print(row)
