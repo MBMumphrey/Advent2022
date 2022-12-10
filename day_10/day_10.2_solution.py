@@ -1,12 +1,12 @@
 import sys
 
-def tick(x, cycle, rows):
+def tick(cycle):
     if ((cycle - 1) % 40) in [x - 1, x, x + 1]:
         rows[int((cycle-1)/40)].append("#")
     else:
         rows[int((cycle-1)/40)].append(".")
     cycle += 1
-    return x, cycle, rows
+    return cycle
 
 if __name__ == "__main__":
     infile = sys.argv[1]
@@ -17,10 +17,10 @@ if __name__ == "__main__":
     with open(infile, 'r') as f:
         for line in f:
             if line.startswith("noop"):
-                x, cycle, rows = tick(x, cycle, rows)
+                cycle = tick(cycle)
             else:
-                x, cycle, rows = tick(x, cycle, rows)
-                x, cycle, rows = tick(x, cycle, rows)
+                cycle = tick(cycle)
+                cycle = tick(cycle)
                 x += int(line.split(" ")[1])
 
     for row in rows:

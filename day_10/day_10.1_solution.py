@@ -1,10 +1,10 @@
 import sys
 
-def tick(x, cycle, total):
+def tick(cycle, total):
     if (cycle - 20) % 40 == 0:
         total += x*cycle
     cycle += 1
-    return x, cycle, total
+    return cycle, total
 
 if __name__ == "__main__":
     infile = sys.argv[1]
@@ -15,10 +15,10 @@ if __name__ == "__main__":
     with open(infile, 'r') as f:
         for line in f:
             if line.startswith("noop"):
-                x, cycle, total = tick(x, cycle, total)
+                cycle, total = tick(cycle, total)
             else:
-                x, cycle, total = tick(x, cycle, total)
-                x, cycle, total = tick(x, cycle, total)
+                cycle, total = tick(cycle, total)
+                cycle, total = tick(cycle, total)
                 x += int(line.split(" ")[1])
 
     print(total)
