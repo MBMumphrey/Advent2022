@@ -11,8 +11,8 @@ if __name__ == "__main__":
     rows = ["", "", "", "", "", ""]
     x, cycle = 1, 1
     for line in open(infile, 'r').readlines():
-        cycle = tick(cycle)
-        if line.startswith("addx"):
+        cycle = tick(cycle) #You always noop once
+        if line.startswith("addx"): #Then addx gets its own extra add cycle
             cycle = tick(cycle)
             x += int(line.split(" ")[1])
 
