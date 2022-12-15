@@ -27,18 +27,21 @@ def main():
         coords = re.match(pattern, line).groups()
         pairs.append([[int(coords[0]), int(coords[1])],[int(coords[2]), int(coords[3])]])
     bound = 4000000
+    sensor_vars = []
+    for sensor, beacon in pairs:
+        b = sensor[1] - sensor[0]
+        c = sensor[1] + sensor[0]
+        test_x = beacon[0]
+        if (beacon[0] < sensor[0] and beacon[1] < sensor[1]) or ((beacon[0] > sensor[0] and beacon[1] > sensor[1])):
+            test_y = -test_x + c
+        else:
+            test_y = test_x + b
+        o = abs(test_y - beacon[1])
+        sensor_vars.append([sensor[1], b, c, o])
     for row in range(bound + 1):
         ranges = []
-        for sensor, beacon in pairs:
-            b = sensor[1] - sensor[0]
-            c = sensor[1] + sensor[0]
-            test_x = beacon[0]
-            if (beacon[0] < sensor[0] and beacon[1] < sensor[1]) or ((beacon[0] > sensor[0] and beacon[1] > sensor[1])):
-                test_y = -test_x + c
-            else:
-                test_y = test_x + b
-            o = abs(test_y - beacon[1])
-            if row < sensor[1]:
+        for y, b, c, o in sensor_vars:
+            if row < y:
                 left = c - o - row
                 right = row - b + o
             else:
